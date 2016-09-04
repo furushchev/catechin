@@ -41,7 +41,7 @@ def update_with_diff(src_path, updated):
         tf.write(updated)
         tf.flush()
         try:
-            diff = subprocess.check_output(["colordiff", src_path, tf.name])
+            diff = subprocess.check_output(["cdiff", src_path, tf.name])
         except subprocess.CalledProcessError as e:
             if e.returncode == 1 and e.output is not None:
                 diff = e.output
@@ -121,25 +121,7 @@ def sort_package_xml():
     xml = etree.tostring(transformed, pretty_print=True)
     return update_with_diff(xml_path, xml)
 
-def check_colordiff_installed():
-    try:
-        subprocess.check_output(["colordiff", "-v"], stderr=subprocess.STDOUT)
-        return True
-    except subprocess.CalledProcessError as e:
-        error("""colordiff is not found.
-try install:
-  Ubuntu / Debian:
-    sudo apt-get install colordiff
-  or
-  macOS:
-    brew install colordiff""")
-        return False
-
-
 def main(args=None):
-    if not check_colordiff_installed():
-        return False
-
     try:
         cmake_to_package()
         sort_package_xml()
