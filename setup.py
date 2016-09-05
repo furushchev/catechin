@@ -8,7 +8,7 @@ setup(
     name = "catechin",
     author = "Yuki Furuta",
     author_email = "furushchev@jsk.imi.i.u-tokyo.ac.jp",
-    version = "0.0.2",
+    version = "0.0.3",
     packages = ['catechin'],
     entry_points = {'console_scripts': ['catechin=catechin:main']},
     package_data = {'catechin': ['data/package.xsl']},
